@@ -3,9 +3,6 @@
 import argparse
 import fbic.checker
     
-def yeck():
-    print "YEK"
-    
 ############
 ### MAIN ###
 ############
