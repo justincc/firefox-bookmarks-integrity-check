@@ -18,17 +18,15 @@ def check(dbPath):
     
     curs.execute("select id, parent, title from moz_bookmarks")
     
-    entriesWithoutValidParent = []
+    invalidParentEntries = []
     
     for row in curs:
         if row['parent'] not in ids:
-            entriesWithoutValidParent.append(row)
+            invalidParentEntries.append(row)
             
-    conn.close()    
+    conn.close()
     
-    print "Database %s contains:" % dbPath        
-    print "Entries: %s" % (len(ids) - 1)
-    print "Entries without valid parent: %s" % len(entriesWithoutValidParent)
+    return { 'entries' : len(ids) - 1, 'invalidParentEntries' : len(invalidParentEntries) }
     
 ############
 ### MAIN ###
@@ -39,4 +37,8 @@ parser.add_argument('dbPath', help = 'Path to Firefox places.sqlite file.', meta
 
 opt = parser.parse_args()
 
-check(opt.dbPath)
+results = check(opt.dbPath)
+    
+print "Database %s contains:" % opt.dbPath        
+print "Entries: %s" % results['entries']
+print "Entries without valid parent: %s" % results['invalidParentEntries']
