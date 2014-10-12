@@ -2,6 +2,7 @@
 
 import argparse
 import fbic.checker
+import sqlite3
     
 ############
 ### MAIN ###
@@ -12,7 +13,10 @@ parser.add_argument('dbPath', help = 'Path to Firefox places.sqlite file.', meta
 
 opt = parser.parse_args()
 
-results = fbic.checker.check(opt.dbPath)
+conn = sqlite3.connect(opt.dbPath)
+conn.row_factory = sqlite3.Row
+
+results = fbic.checker.check(conn)
     
 print "Database %s contains:" % opt.dbPath        
 print "Entries: %s" % results['entries']

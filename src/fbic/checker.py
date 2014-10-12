@@ -1,8 +1,4 @@
-import sqlite3
-
-def check(dbPath):
-    conn = sqlite3.connect(dbPath)
-    conn.row_factory = sqlite3.Row
+def check(conn):    
     curs = conn.cursor()
     
     curs.execute("select id from moz_bookmarks")
