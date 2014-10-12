@@ -30,7 +30,9 @@ entriesWithoutValidParent = []
 
 for row in curs:
     if row['parent'] not in ids:
-        entriesWithoutValidParent.append(row)    
+        entriesWithoutValidParent.append(row)
+        
+conn.close()    
 
 print "Database %s contains:" % opt.dbPath        
 print "Entries: %s" % (len(ids) - 1)
