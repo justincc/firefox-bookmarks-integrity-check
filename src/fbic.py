@@ -13,15 +13,14 @@ parser.add_argument('dbPath', help = 'Path to Firefox places.sqlite file.', meta
 opt = parser.parse_args()
 
 conn = sqlite3.connect(opt.dbPath)
+conn.row_factory = sqlite3.Row
 curs = conn.cursor()
 
 curs.execute("select id from moz_bookmarks")
 
-rows = curs.fetchall()
-
 ids = []
 
-for row in rows:
-    ids.append(row[0])
+for row in curs:
+    ids.append(row["id"])
     
 print "Database %s contains %s items" % (opt.dbPath, len(ids))
