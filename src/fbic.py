@@ -19,5 +19,5 @@ conn.row_factory = sqlite3.Row
 results = fbic.checker.check(conn)
     
 print "Database %s contains:" % opt.dbPath        
-print "Entries: %s" % results['entries']
+print "Entries: %s" % (results['entries'] - 1)
 print "Entries without valid parent: %s" % results['invalidParentEntries']
