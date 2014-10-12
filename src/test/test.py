@@ -22,8 +22,8 @@ class FbicTests(unittest.TestCase):
         conn.commit()
         
         res = checker.check(conn)
-        self.assertEqual(res['entries'], 3)
-        self.assertEqual(res['invalidParentEntries'], 1)
+        self.assertEqual(res.entries, 3)
+        self.assertEqual(res.invalidParentEntries, 1)
         
 def main():
     unittest.main()

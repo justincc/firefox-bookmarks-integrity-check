@@ -1,3 +1,17 @@
+class CheckerResults:
+    
+    def __init__(self, entries, invalidParentEntries):
+        self._entries = entries
+        self._invalidParentEntries = invalidParentEntries
+        
+    @property
+    def entries(self):
+        return self._entries
+    
+    @property
+    def invalidParentEntries(self):
+        return self._invalidParentEntries
+    
 def check(conn):    
     curs = conn.cursor()
     
@@ -19,4 +33,6 @@ def check(conn):
             
     conn.close()
     
-    return { 'entries' : len(ids) - 1, 'invalidParentEntries' : len(invalidParentEntries) }
+    #return { 'entries' : len(ids) - 1, 'invalidParentEntries' : len(invalidParentEntries) }
+    return CheckerResults(len(ids) - 1, len(invalidParentEntries))
+    
