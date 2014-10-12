@@ -18,9 +18,20 @@ curs = conn.cursor()
 
 curs.execute("select id from moz_bookmarks")
 
-ids = []
+# Record the built-in root folder with ID 0
+ids = [ 0 ]
 
 for row in curs:
-    ids.append(row["id"])
-    
-print "Database %s contains %s items" % (opt.dbPath, len(ids))
+    ids.append(row['id'])
+
+curs.execute("select id, parent, title from moz_bookmarks")
+
+entriesWithoutValidParent = []
+
+for row in curs:
+    if row['parent'] not in ids:
+        entriesWithoutValidParent.append(row)    
+
+print "Database %s contains:" % opt.dbPath        
+print "Entries: %s" % (len(ids) - 1)
+print "Entries without valid parent: %s" % len(entriesWithoutValidParent)
